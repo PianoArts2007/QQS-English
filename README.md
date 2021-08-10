@@ -9,6 +9,6 @@ QMidiCore Quaver Stream Renderer (QQS) is a Black MIDI renderer (originally made
 ### UI
 The UI is based on "Zenith-MIDI"'s UI by Arduano, with modified colours.
 
-### English Fork
+### This Fork
 This fork aims to translate QQS in its entirety in English.
 Also there are some slight UI cosmetic modifications so the program looks a bit better.
