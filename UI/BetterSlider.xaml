@@ -17,14 +17,14 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Height="14" Name="clickerGrid" Background="Transparent" MouseEnter="ClickerGrid_MouseEnter" MouseLeave="ClickerGrid_MouseLeave" MouseDown="ClickerGrid_MouseDown" MouseMove="ClickerGrid_MouseMove" MouseUp="ClickerGrid_MouseUp">
-        <Grid Margin="5" VerticalAlignment="Center" Name="barGrid" Height="4" Background="#55000000">
+        <Grid Margin="5" VerticalAlignment="Center" Name="barGrid" Height="4" Background="#55FFFFFF">
             <Rectangle HorizontalAlignment="Left" Fill="{StaticResource PrimaryBrush}" Opacity="0.8">
                 <Rectangle.Style>
                     <Style TargetType="Rectangle">
                         <Setter Property="Fill" Value="{StaticResource PrimaryBrush}"/>
                         <Style.Triggers>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Fill" Value="#777777"/>
+                                <Setter Property="Fill" Value="#AAAAAA"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -41,14 +41,14 @@
                         <Setter Property="Fill" Value="{StaticResource PrimaryBrush}"/>
                         <Style.Triggers>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Fill" Value="#777777"/>
+                                <Setter Property="Fill" Value="#AAAAAA"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Ellipse.Style>
             </Ellipse>
             <Grid Margin="-7" Name="auraGrid">
-                <Ellipse Name="hoverEllipse" Visibility="Hidden" Fill="#44000000"/>
+                <Ellipse Name="hoverEllipse" Visibility="Hidden" Fill="#44FFFFFF"/>
             </Grid>
         </Grid>
     </Grid>

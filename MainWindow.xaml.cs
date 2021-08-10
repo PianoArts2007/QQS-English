@@ -31,9 +31,9 @@ namespace QQS_UI
         private CommonRenderer renderer = null;
         private readonly Config config;
         private readonly CustomColor customColors;
-        private const string DefaultVideoFilter = "视频 (*.mp4, *.avi, *.mov)|*.mp4;*.avi;*.mov",
-            PNGVideoFilter = "视频 (*.mp4, *.mov)|*.mp4, *.mov",
-            TransparentVideoFilter = "视频 (*.mov)|*.mov";
+        private const string DefaultVideoFilter = "Video (*.mp4, *.avi, *.mov)|*.mp4;*.avi;*.mov",
+            PNGVideoFilter = "Video (*.mp4, *.mov)|*.mp4, *.mov",
+            TransparentVideoFilter = "Video (*.mov)|*.mov";
         public MainWindow()
         {
             InitializeComponent();
@@ -65,7 +65,7 @@ namespace QQS_UI
         {
             OpenFileDialog dialog = new OpenFileDialog
             {
-                Filter = "Midi 文件 (*.mid)|*.mid",
+                Filter = "MIDI File (*.mid)|*.mid",
                 InitialDirectory = config.CachedMIDIDirectory
             };
             if ((bool)dialog.ShowDialog())
@@ -86,11 +86,11 @@ namespace QQS_UI
             string fileName = midiPath.Text;
             if (!File.Exists(fileName) || !fileName.EndsWith(".mid"))
             {
-                _ = MessageBox.Show("不正确的 Midi 路径!", "无法加载 Midi 文件");
+                _ = MessageBox.Show("Incorrect path.", "Unable to load the MIDI.");
                 return;
             }
-            trackCount.Content = "加载中...";
-            noteCount.Content = "加载中...";
+            trackCount.Content = "Loading...";
+            noteCount.Content = "Loading...";
             _ = Task.Run(() =>
             {
                 isLoading = true;
@@ -113,7 +113,7 @@ namespace QQS_UI
             file = null;
             GC.Collect(gen);
             Resources["midiLoaded"] = false;
-            Console.WriteLine("Midi 已经卸载.");
+            Console.WriteLine("MIDI Unloaded.");
             noteCount.Content = "-";
             trackCount.Content = "-";
             midiLen.Content = "--:--.---";
@@ -178,7 +178,7 @@ namespace QQS_UI
             SaveFileDialog dialog = new SaveFileDialog()
             {
                 Filter = options.TransparentBackground ? TransparentVideoFilter : (options.PNGEncoder ? PNGVideoFilter : DefaultVideoFilter),
-                Title = "选择保存输出视频的位置",
+                Title = "Video output path.",
                 InitialDirectory = config.CachedVideoDirectory
             };
             if ((bool)dialog.ShowDialog())
@@ -193,7 +193,7 @@ namespace QQS_UI
         {
             if (file == null)
             {
-                _ = MessageBox.Show("无法进行渲染: \nMidi 文件为空. 请检查是否加载了 Midi 文件.", "无 Midi 文件");
+                _ = MessageBox.Show("Unable to render: \nNo MIDI file loaded.", "No MIDI file loaded.");
                 return;
             }
             options.Input = midiPath.Text;
@@ -204,7 +204,7 @@ namespace QQS_UI
             renderer = new CommonRenderer(file, options);
             _ = Task.Run(() =>
             {
-                Console.WriteLine("准备渲染...");
+                Console.WriteLine("Rendering...");
                 renderer.Render();
                 int gen = GC.GetGeneration(renderer);
                 Dispatcher.Invoke(() =>
@@ -245,12 +245,12 @@ namespace QQS_UI
         {
             if (file == null)
             {
-                _ = MessageBox.Show("无法进行预览: \nMidi 文件为空. 请检查是否加载了 Midi 文件.", "无 Midi 文件");
+                _ = MessageBox.Show("Unable to preview: \nNo MIDI file loaded.", "No MIDI file loaded.");
                 return;
             }
             if (usePNGEncoder.IsChecked)
             {
-                _ = MessageBox.Show("无法进行预览: \n不支持使用 PNG 序列进行预览.", "无法预览");
+                _ = MessageBox.Show("Unable to preview: \nPreview is not supported with PNG sequence.", "Unable to preview.");
                 return;
             }
             options.Input = midiPath.Text;
@@ -261,7 +261,7 @@ namespace QQS_UI
             renderer = new CommonRenderer(file, options);
             _ = Task.Run(() =>
             {
-                Console.WriteLine("准备预览...");
+                Console.WriteLine("Previewing...");
                 renderer.Render();
                 int gen = GC.GetGeneration(renderer);
                 Dispatcher.Invoke(() =>
@@ -277,7 +277,7 @@ namespace QQS_UI
         {
             customColors.UseDefault();
             customColors.SetGlobal();
-            _ = MessageBox.Show("颜色重设完成.", "颜色重置完成");
+            _ = MessageBox.Show("Default colours set.", "Default colours set");
         }
 
         private void loadColors_Click(object sender, RoutedEventArgs e)
@@ -285,34 +285,34 @@ namespace QQS_UI
             string filePath = colorPath.Text;
             if (!filePath.EndsWith(".json"))
             {
-                _ = MessageBox.Show("无法加载颜色文件.\n当前仅支持.json格式的颜色文件.", "无法加载颜色");
+                _ = MessageBox.Show("Unable to load palette.\nPalettes are only supported in JSON format..", "Unable to load palette");
                 return;
             }
             if (!File.Exists(filePath))
             {
-                _ = MessageBox.Show("无法加载颜色文件: 文件不存在.", "无法加载颜色");
+                _ = MessageBox.Show("Unable to load palette: Palette does not exist.", "Unable to load palette");
                 return;
             }
             int errCode = customColors.Load(filePath);
             if (errCode == 1)
             {
-                _ = MessageBox.Show("加载颜色文件时发生了错误: 此文件格式不与支持的颜色文件兼容.", "无法加载颜色");
+                _ = MessageBox.Show("Unable to load palette: This file format is not supported.", "Unable to load palette");
                 return;
             }
             errCode = customColors.SetGlobal();
             if (errCode != 0)
             {
-                _ = MessageBox.Show("设置颜色时发生了错误: 颜色为空.", "无法设置颜色");
+                _ = MessageBox.Show("Unable to load palette: Palette is empty.", "Unable to load palette");
                 return;
             }
-            _ = MessageBox.Show("颜色加载成功. 一共加载了: " + customColors.Colors.Length + " 种颜色.", "颜色加载完成");
+            _ = MessageBox.Show("Palette loaded: " + customColors.Colors.Length + " colours.", "Palette loaded");
         }
 
         private void openColorFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
             {
-                Filter = "JSON 文件 (*.json)|*.json",
+                Filter = "JSON file (*.json)|*.json",
                 InitialDirectory = config.CachedColorDirectory
             };
             if ((bool)dialog.ShowDialog())
@@ -346,7 +346,7 @@ namespace QQS_UI
             string coltxt = barColor.Text;
             if (coltxt.Length != 6)
             {
-                _ = MessageBox.Show("当前的颜色代码不符合规范.\n一个颜色代码应当由6位16进制表示的数字组成.", "无法设置颜色");
+                _ = MessageBox.Show("Incorrect colour code.\nPlease enter the colour in hexadecimal format.", "Incorrect colour code");
                 return;
             }
             try
@@ -366,7 +366,7 @@ namespace QQS_UI
             }
             catch
             {
-                _ = MessageBox.Show("错误: 无法解析颜色代码.\n请检查输入的颜色代码是否正确.", "无法设置颜色");
+                _ = MessageBox.Show("Incorrect colour code: The colour code is invalid.", "Incorrect colour code");
             }
         }
 
@@ -376,7 +376,7 @@ namespace QQS_UI
             {
                 if (outputPath.Text.EndsWith(".avi") && e.NewValue)
                 {
-                    _ = MessageBox.Show("注意: 暂不支持以.avi为后缀的 PNG 编码视频.\n请保存为.mp4或者.mov格式.", "无法设置为PNG 编码器");
+                    _ = MessageBox.Show("Note: AVI is not supported as a PNG sequence encoder.\nPlease save as MP4 or MOV.", "Cannot be set as a PNG sequence encoder");
                     e.Handled = true;
                     usePNGEncoder.IsChecked = false;
                     return;
