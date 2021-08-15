@@ -358,6 +358,10 @@ namespace QQS_UI
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of d6c5dcb (Fix some shit I did)
         private void loadPFAColors_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -368,7 +372,11 @@ namespace QQS_UI
             }
             catch (Exception ex)
             {
+<<<<<<< HEAD
                 _ = MessageBox.Show($"Cannot load PFA palette: \n{ex.Message}\nStack Trace: \n{ex.StackTrace}", "Unable to load PFA palette");
+=======
+                _ = MessageBox.Show($"加载 PFA 配置颜色时出现了错误: \n{ex.Message}\n栈追踪: \n{ex.StackTrace}", "无法加载 PFA 配置");
+>>>>>>> parent of d6c5dcb (Fix some shit I did)
             }
         }
 
@@ -377,7 +385,11 @@ namespace QQS_UI
             string coltxt = bgColor.Text;
             if (coltxt.Length != 6)
             {
+<<<<<<< HEAD
                 _ = MessageBox.Show("Incorrect colour code.\nPlease enter the colour in hexadecimal format.", "Incorrect colour code");
+=======
+                _ = MessageBox.Show("当前的颜色代码不符合规范.\n一个颜色代码应当由6位16进制表示的数字组成.", "无法设置颜色");
+>>>>>>> parent of d6c5dcb (Fix some shit I did)
                 return;
             }
             try
@@ -397,12 +409,20 @@ namespace QQS_UI
             }
             catch
             {
+<<<<<<< HEAD
                 _ = MessageBox.Show("Incorrect colour code: The colour code is invalid.", "Incorrect colour code");
             }
         }
 
 =======
 >>>>>>> parent of 4c6f230 (w)
+=======
+                _ = MessageBox.Show("错误: 无法解析颜色代码.\n请检查输入的颜色代码是否正确.", "无法设置颜色");
+            }
+        }
+
+>>>>>>> parent of b7a2299 (Update MainWindow.xaml.cs)
+>>>>>>> parent of d6c5dcb (Fix some shit I did)
         private void setBarColor_Click(object sender, RoutedEventArgs e)
         {
             string coltxt = barColor.Text;
