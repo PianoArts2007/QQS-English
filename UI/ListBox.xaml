@@ -36,7 +36,7 @@
         <media:Setter Property="BorderBrush" Value="Transparent"/>
         <media:Setter Property="BorderThickness" Value="1"/>
         <media:Setter Property="FontSize" Value="14"/>
-        <media:Setter Property="Foreground" Value="#464855"/>
+        <media:Setter Property="Foreground" Value="White"/>
         <media:Setter Property="Padding" Value="5"/>
         <media:Setter Property="Template">
             <media:Setter.Value>
@@ -51,13 +51,13 @@
                             <media:MultiTrigger.Conditions>
                                 <media:Condition Property="IsMouseOver" Value="True"/>
                             </media:MultiTrigger.Conditions>
-                            <media:Setter Property="Background" TargetName="Bd" Value="#11464855"/>
+                            <media:Setter Property="Background" TargetName="Bd" Value="#11FFFFFF"/>
                         </media:MultiTrigger>
                         <media:MultiTrigger>
                             <media:MultiTrigger.Conditions>
                                 <media:Condition Property="IsSelected" Value="True"/>
                             </media:MultiTrigger.Conditions>
-                            <media:Setter Property="Background" TargetName="Bd" Value="#33464855"/>
+                            <media:Setter Property="Background" TargetName="Bd" Value="#33FFFFFF"/>
                         </media:MultiTrigger>
                     </media:ControlTemplate.Triggers>
                 </media:ControlTemplate>

@@ -36,7 +36,7 @@ namespace QQS_UI.Core
             isTickBased = options.TickBased;
             isPreview = options.PreviewMode;
 
-            Console.WriteLine("MIDI file is being processed.");
+            Console.WriteLine("正在对 Midi 文件进行 OR 处理.");
             _ = Parallel.For(0, 128, (i) =>
             {
                 UnmanagedList<Note> nl = noteMap[i];
@@ -58,7 +58,7 @@ namespace QQS_UI.Core
                     }
                 }
             });
-            Console.WriteLine("Processing complete.");
+            Console.WriteLine("OR 处理完成.");
         }
 
         public abstract void Render();

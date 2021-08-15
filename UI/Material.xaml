@@ -28,7 +28,7 @@
                     <Border Name="border"
                         BorderThickness="1"
                         Padding="4,2"
-                        BorderBrush="#444444"
+                        BorderBrush="DarkGray"
                         CornerRadius="3"
                         Background="{TemplateBinding Background}">
                         <Grid >
@@ -246,7 +246,7 @@
                         </Border>
                         <Border x:Name="templateRoot" SnapsToDevicePixels="true">
                             <Border.Background>
-                                <SolidColorBrush x:Name="solidBrush" Color="#555555"/>
+                                <SolidColorBrush x:Name="solidBrush" Color="#FEFEFE"/>
                             </Border.Background>
                             <Border x:Name="splitBorder" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="true" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
                                 <Path x:Name="arrow" Data="F1 M -2,0 L 2.667,2.66665 L 7.3334,0 L 7.3334,-1.78168 L 2.6667,0.88501 L-2,-1.78168 L-2,0 Z" Fill="{StaticResource PrimaryBrush}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
@@ -266,7 +266,7 @@
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="solidBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.1" To="#555555" />
+                                        <ColorAnimation Storyboard.TargetName="solidBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.1" To="#CDEFFF" />
                                         <DoubleAnimation Storyboard.TargetName="dropShadow" Storyboard.TargetProperty="BlurRadius" Duration="0:0:0.1" To="10" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -274,7 +274,7 @@
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ColorAnimation Storyboard.TargetName="solidBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.1" To="#555555" />
+                                        <ColorAnimation Storyboard.TargetName="solidBrush" Storyboard.TargetProperty="Color" Duration="0:0:0.1" To="#FEFEFE" />
                                         <DoubleAnimation Storyboard.TargetName="dropShadow" Storyboard.TargetProperty="BlurRadius" Duration="0:0:0.1" To="5" />
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -287,8 +287,8 @@
     </Style>
     <Style TargetType="{x:Type ComboBox}">
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Foreground" Value="#ffffff"/>
-        <Setter Property="Background" Value="#555555"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="Background" Value="#EFEFEF"/>
         <Setter Property="FontFamily" Value="{StaticResource Font}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -300,7 +300,7 @@
                         </Grid.ColumnDefinitions>
                         <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
                             <Grid MinWidth="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ActualWidth}">
-                                <Border Background="#555555">
+                                <Border Background="#EFEFEF">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="0" BlurRadius="2"/>
                                     </Border.Effect>
@@ -341,11 +341,11 @@
         </Setter>
     </Style>
     <Style TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="Foreground" Value="#ffffff"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="FontFamily" Value="{StaticResource Font}"/>
-        <Setter Property="Background" Value="#555555"/>
+        <Setter Property="Background" Value="#FEFEFE"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
@@ -354,7 +354,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#555555"/>
+                            <Setter Property="Background" Value="#CDEFFF"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -363,9 +363,9 @@
     </Style>
     
     <Style TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="#555555"/>
+        <Setter Property="Background" Value="White"/>
         <Setter Property="FontFamily" Value="{StaticResource Font}"/>
-        <Setter Property="Foreground" Value="#ffffff"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="3"/>
         <Setter Property="Template">
@@ -378,7 +378,7 @@
                             </Border.Effect>
                         </Border>
                         <Border Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" 
-                                             Background="#555555" 
+                                             Background="#0E8DD2" 
                                              SnapsToDevicePixels="true">
                             <ScrollViewer Name="PART_ContentHost" Background="{TemplateBinding Background}" 
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />

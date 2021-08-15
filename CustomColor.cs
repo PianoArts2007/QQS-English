@@ -30,12 +30,12 @@ namespace QQS_UI
                 }
                 catch
                 {
-                    Console.WriteLine("Custom palette cannot be loaded. Using default palette.");
+                    Console.WriteLine("Error loading palette. Using default coloursS...");
                     Colors = new RGBAColor[96];
                     Array.Copy(Global.DefaultColors, Colors, 96);
                 }
             }
-            Console.WriteLine("Palette loaded. Loaded {0} colours.", Colors.Length);
+            Console.WriteLine("Colours loaded. Loaded {0} colours.", Colors.Length);
         }
 
         private CustomColor()

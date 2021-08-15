@@ -26,7 +26,7 @@ namespace QQS_UI.Core
             string ffcommand;
             stream = CStream.OpenPipe(ffcommand = "ffmpeg " + ffargs, "wb");
             frameSize = (uint)width * (uint)height * 4;
-            Console.WriteLine("ffmpeg started: {0}", ffcommand);
+            Console.WriteLine("FFMpeg 启动命令: {0}", ffcommand);
         }
         /// <summary>
         /// 向 FFMpeg 写入一帧.

@@ -103,7 +103,7 @@ namespace QQS_UI
             string fileName = midiPath.Text;
             if (!File.Exists(fileName) || !fileName.EndsWith(".mid"))
             {
-                _ = MessageBox.Show("Incorrect path.", "Unable to load the MIDI.");
+                _ = MessageBox.Show("Incorrect MIDI path.", "Cannot load MIDI file.");
                 return;
             }
             trackCount.Content = "Loading...";
@@ -130,7 +130,7 @@ namespace QQS_UI
             file = null;
             GC.Collect(gen);
             Resources["midiLoaded"] = false;
-            Console.WriteLine("MIDI Unloaded.");
+            Console.WriteLine("Unloaded MIDI.");
             noteCount.Content = "-";
             trackCount.Content = "-";
             midiLen.Content = "--:--.---";
@@ -195,7 +195,7 @@ namespace QQS_UI
             SaveFileDialog dialog = new SaveFileDialog()
             {
                 Filter = options.TransparentBackground ? TransparentVideoFilter : (options.PNGEncoder ? PNGVideoFilter : DefaultVideoFilter),
-                Title = "Video output path.",
+                Title = "Video output path",
                 InitialDirectory = config.CachedVideoDirectory
             };
             if ((bool)dialog.ShowDialog())
@@ -210,7 +210,7 @@ namespace QQS_UI
         {
             if (file == null)
             {
-                _ = MessageBox.Show("Unable to render: \nNo MIDI file loaded.", "No MIDI file loaded.");
+                _ = MessageBox.Show("Unable to render: \nNo MIDI file selected.", "No MIDI file");
                 return;
             }
             options.Input = midiPath.Text;
@@ -221,7 +221,7 @@ namespace QQS_UI
             renderer = new CommonRenderer(file, options);
             _ = Task.Run(() =>
             {
-                Console.WriteLine("Rendering...");
+                Console.WriteLine("准备渲染...");
                 renderer.Render();
                 int gen = GC.GetGeneration(renderer);
                 Dispatcher.Invoke(() =>
@@ -261,12 +261,12 @@ namespace QQS_UI
         {
             if (file == null)
             {
-                _ = MessageBox.Show("Unable to preview: \nNo MIDI file loaded.", "No MIDI file loaded.");
+                _ = MessageBox.Show("Unable to preview: \nNo MIDI file selected.", "No MIDI file");
                 return;
             }
             if (usePNGEncoder.IsChecked)
             {
-                _ = MessageBox.Show("Unable to preview: \nPreview is not supported with PNG sequence.", "Unable to preview.");
+                _ = MessageBox.Show("Unable to preview: \nCannot preview when using PNG sequence.", "Unable to preview");
                 return;
             }
             options.Input = midiPath.Text;
@@ -277,7 +277,7 @@ namespace QQS_UI
             renderer = new CommonRenderer(file, options);
             _ = Task.Run(() =>
             {
-                Console.WriteLine("Previewing...");
+                Console.WriteLine("Ready to preview...");
                 renderer.Render();
                 int gen = GC.GetGeneration(renderer);
                 Dispatcher.Invoke(() =>
@@ -293,7 +293,7 @@ namespace QQS_UI
         {
             customColors.UseDefault();
             customColors.SetGlobal();
-            _ = MessageBox.Show("Default colours set.", "Default colours set");
+            _ = MessageBox.Show("Colours reset.", "Colours reset");
         }
 
         private void loadColors_Click(object sender, RoutedEventArgs e)
@@ -301,18 +301,18 @@ namespace QQS_UI
             string filePath = colorPath.Text;
             if (!filePath.EndsWith(".json"))
             {
-                _ = MessageBox.Show("Unable to load palette.\nPalettes are only supported in JSON format..", "Unable to load palette");
+                _ = MessageBox.Show("Unable to load palette.\nPalettes are only supported in JSON format.", "Unable to load palette");
                 return;
             }
             if (!File.Exists(filePath))
             {
-                _ = MessageBox.Show("Unable to load palette: Palette does not exist.", "Unable to load palette");
+                _ = MessageBox.Show("Unable to load palette: The palette does not exist.", "Unable to load palette");
                 return;
             }
             int errCode = customColors.Load(filePath);
             if (errCode == 1)
             {
-                _ = MessageBox.Show("Unable to load palette: This file format is not supported.", "Unable to load palette");
+                _ = MessageBox.Show("Unable to load palette: Incorrect file format.", "Unable to load palette");
                 return;
             }
             errCode = customColors.SetGlobal();
@@ -321,14 +321,14 @@ namespace QQS_UI
                 _ = MessageBox.Show("Unable to load palette: Palette is empty.", "Unable to load palette");
                 return;
             }
-            _ = MessageBox.Show("Palette loaded: " + customColors.Colors.Length + " colours.", "Palette loaded");
+            _ = MessageBox.Show("Palette loaded. Loaded " + customColors.Colors.Length + " colours.", "Loaded palette");
         }
 
         private void openColorFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
             {
-                Filter = "JSON file (*.json)|*.json",
+                Filter = "JSON File (*.json)|*.json",
                 InitialDirectory = config.CachedColorDirectory
             };
             if ((bool)dialog.ShowDialog())
@@ -357,11 +357,6 @@ namespace QQS_UI
             Global.LimitPreviewFPS = e.NewValue;
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of d6c5dcb (Fix some shit I did)
         private void loadPFAColors_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -372,11 +367,7 @@ namespace QQS_UI
             }
             catch (Exception ex)
             {
-<<<<<<< HEAD
-                _ = MessageBox.Show($"Cannot load PFA palette: \n{ex.Message}\nStack Trace: \n{ex.StackTrace}", "Unable to load PFA palette");
-=======
-                _ = MessageBox.Show($"加载 PFA 配置颜色时出现了错误: \n{ex.Message}\n栈追踪: \n{ex.StackTrace}", "无法加载 PFA 配置");
->>>>>>> parent of d6c5dcb (Fix some shit I did)
+                _ = MessageBox.Show($"Unable to load PFA palette: \n{ex.Message}\nStack trace: \n{ex.StackTrace}", "Unable to load PFA palette");
             }
         }
 
@@ -385,11 +376,7 @@ namespace QQS_UI
             string coltxt = bgColor.Text;
             if (coltxt.Length != 6)
             {
-<<<<<<< HEAD
-                _ = MessageBox.Show("Incorrect colour code.\nPlease enter the colour in hexadecimal format.", "Incorrect colour code");
-=======
-                _ = MessageBox.Show("当前的颜色代码不符合规范.\n一个颜色代码应当由6位16进制表示的数字组成.", "无法设置颜色");
->>>>>>> parent of d6c5dcb (Fix some shit I did)
+                _ = MessageBox.Show("Invalid colour code.\nThe colour has to be in 6-digit hexadecimal format.", "Invalid colour code");
                 return;
             }
             try
@@ -409,26 +396,16 @@ namespace QQS_UI
             }
             catch
             {
-<<<<<<< HEAD
-                _ = MessageBox.Show("Incorrect colour code: The colour code is invalid.", "Incorrect colour code");
+                _ = MessageBox.Show("Invalid colour code.\nThe colour code is incorrect.", "Invalid colour code");
             }
         }
 
-=======
->>>>>>> parent of 4c6f230 (w)
-=======
-                _ = MessageBox.Show("错误: 无法解析颜色代码.\n请检查输入的颜色代码是否正确.", "无法设置颜色");
-            }
-        }
-
->>>>>>> parent of b7a2299 (Update MainWindow.xaml.cs)
->>>>>>> parent of d6c5dcb (Fix some shit I did)
         private void setBarColor_Click(object sender, RoutedEventArgs e)
         {
             string coltxt = barColor.Text;
             if (coltxt.Length != 6)
             {
-                _ = MessageBox.Show("Incorrect colour code.\nPlease enter the colour in hexadecimal format.", "Incorrect colour code");
+                _ = MessageBox.Show("Invalid colour code.\nThe colour has to be in 6-digit hexadecimal format.", "Invalid colour code");
                 return;
             }
             try
@@ -448,7 +425,7 @@ namespace QQS_UI
             }
             catch
             {
-                _ = MessageBox.Show("Incorrect colour code: The colour code is invalid.", "Incorrect colour code");
+                _ = MessageBox.Show("Invalid colour code.\nThe colour code is incorrect.", "Invalid colour code");
             }
         }
 
@@ -458,7 +435,7 @@ namespace QQS_UI
             {
                 if (outputPath.Text.EndsWith(".avi") && e.NewValue)
                 {
-                    _ = MessageBox.Show("Note: AVI is not supported as a PNG sequence encoder.\nPlease save as MP4 or MOV.", "Cannot be set as a PNG sequence encoder");
+                    _ = MessageBox.Show("Note: AVI video isn't currently supported with PNG sequence.\nPlease save as MP4 or MOV.", "Cannot be set as PNG encoder");
                     e.Handled = true;
                     usePNGEncoder.IsChecked = false;
                     return;
