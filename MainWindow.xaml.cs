@@ -367,7 +367,7 @@ namespace QQS_UI
             }
             catch (Exception ex)
             {
-                _ = MessageBox.Show($"加载 PFA 配置颜色时出现了错误: \n{ex.Message}\n栈追踪: \n{ex.StackTrace}", "无法加载 PFA 配置");
+                _ = MessageBox.Show($"Cannot load PFA palette: \n{ex.Message}\nStack Trace: \n{ex.StackTrace}", "Unable to load PFA palette");
             }
         }
 
@@ -376,7 +376,7 @@ namespace QQS_UI
             string coltxt = bgColor.Text;
             if (coltxt.Length != 6)
             {
-                _ = MessageBox.Show("当前的颜色代码不符合规范.\n一个颜色代码应当由6位16进制表示的数字组成.", "无法设置颜色");
+                _ = MessageBox.Show("Incorrect colour code.\nPlease enter the colour in hexadecimal format.", "Incorrect colour code");
                 return;
             }
             try
@@ -396,7 +396,7 @@ namespace QQS_UI
             }
             catch
             {
-                _ = MessageBox.Show("错误: 无法解析颜色代码.\n请检查输入的颜色代码是否正确.", "无法设置颜色");
+                _ = MessageBox.Show("Incorrect colour code: The colour code is invalid.", "Incorrect colour code");
             }
         }
 
