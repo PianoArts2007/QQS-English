@@ -357,6 +357,7 @@ namespace QQS_UI
             Global.LimitPreviewFPS = e.NewValue;
         }
 
+<<<<<<< HEAD
         private void loadPFAColors_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -400,6 +401,8 @@ namespace QQS_UI
             }
         }
 
+=======
+>>>>>>> parent of 4c6f230 (w)
         private void setBarColor_Click(object sender, RoutedEventArgs e)
         {
             string coltxt = barColor.Text;
