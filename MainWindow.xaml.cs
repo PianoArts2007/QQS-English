@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QQS_UI.Core;
 using Path = System.IO.Path;
+using System.Diagnostics;
+using System.Threading;
 
 namespace QQS_UI
 {
@@ -54,11 +56,26 @@ namespace QQS_UI
             config.SaveConfig();
             previewColor.Background = new SolidColorBrush(new Color
             {
-                R = (byte)(options.LineColor & 0xff),
-                G = (byte)((options.LineColor & 0xff00) >> 8),
-                B = (byte)((options.LineColor & 0xff0000) >> 16),
+                R = (byte)(options.DivideBarColor & 0xff),
+                G = (byte)((options.DivideBarColor & 0xff00) >> 8),
+                B = (byte)((options.DivideBarColor & 0xff0000) >> 16),
                 A = 0xff
             });
+            previewBackgroundColor.Background = new SolidColorBrush(new Color
+            {
+                R = 0,
+                G = 0,
+                B = 0,
+                A = 255
+            });
+
+            if (!PFAConfigrationLoader.IsConfigurationAvailable)
+            {
+                loadPFAColors.IsEnabled = false;
+            }
+#if DEBUG
+            Title += " (Debug)";
+#endif
         }
 
         private void openMidi_Click(object sender, RoutedEventArgs e)
@@ -240,7 +257,6 @@ namespace QQS_UI
                 }
             }
         }
-
         private void startPreview_Click(object sender, RoutedEventArgs e)
         {
             if (file == null)
@@ -341,6 +357,49 @@ namespace QQS_UI
             Global.LimitPreviewFPS = e.NewValue;
         }
 
+        private void loadPFAColors_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                RGBAColor[] colors = PFAConfigrationLoader.LoadPFAConfigurationColors();
+                customColors.Colors = colors;
+                customColors.SetGlobal();
+            }
+            catch (Exception ex)
+            {
+                _ = MessageBox.Show($"加载 PFA 配置颜色时出现了错误: \n{ex.Message}\n栈追踪: \n{ex.StackTrace}", "无法加载 PFA 配置");
+            }
+        }
+
+        private void setbgColor_Click(object sender, RoutedEventArgs e)
+        {
+            string coltxt = bgColor.Text;
+            if (coltxt.Length != 6)
+            {
+                _ = MessageBox.Show("当前的颜色代码不符合规范.\n一个颜色代码应当由6位16进制表示的数字组成.", "无法设置颜色");
+                return;
+            }
+            try
+            {
+                byte r = Convert.ToByte(coltxt.Substring(0, 2), 16);
+                byte g = Convert.ToByte(coltxt.Substring(2, 2), 16);
+                byte b = Convert.ToByte(coltxt.Substring(4, 2), 16);
+                uint col = 0xff000000U | r | (uint)(g << 8) | (uint)(b << 16);
+                options.BackgroundColor = col;
+                previewBackgroundColor.Background = new SolidColorBrush(new Color()
+                {
+                    R = r,
+                    G = g,
+                    B = b,
+                    A = 0xff
+                });
+            }
+            catch
+            {
+                _ = MessageBox.Show("错误: 无法解析颜色代码.\n请检查输入的颜色代码是否正确.", "无法设置颜色");
+            }
+        }
+
         private void setBarColor_Click(object sender, RoutedEventArgs e)
         {
             string coltxt = barColor.Text;
@@ -355,7 +414,7 @@ namespace QQS_UI
                 byte g = Convert.ToByte(coltxt.Substring(2, 2), 16);
                 byte b = Convert.ToByte(coltxt.Substring(4, 2), 16);
                 uint col = 0xff000000U | r | (uint)(g << 8) | (uint)(b << 16);
-                options.LineColor = col;
+                options.DivideBarColor = col;
                 previewColor.Background = new SolidColorBrush(new Color()
                 {
                     R = r,
