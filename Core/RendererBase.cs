@@ -11,6 +11,7 @@ namespace QQS_UI.Core
     {
         protected readonly RenderFile renderFile;
         protected readonly UnmanagedList<Note>[] noteMap;
+        protected readonly CommonCanvas canvas;
         protected readonly UnmanagedList<Tempo> tempos;
 
         protected readonly ushort ppq;
@@ -26,6 +27,7 @@ namespace QQS_UI.Core
         {
             renderFile = file;
             noteMap = file.Notes;
+            canvas = new CommonCanvas(options);
             tempos = file.Tempos;
 
             ppq = file.Division;
