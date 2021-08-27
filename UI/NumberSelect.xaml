@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
         <Grid Margin="0,0,3,0">
             <TextBox ClipToBounds="True" x:Name="textBox" Padding="0,1,0,0" TextWrapping="Wrap"
-                 Background="Transparent"
+                 Background="#444145"
                  BorderThickness="0"
                  KeyDown="TextBox_KeyDown"
                      Foreground="{StaticResource PrimaryBrush}"
@@ -30,7 +30,7 @@
                      RenderTransformOrigin="0.5,0.5" TextChanged="TextBox_TextChanged" LostFocus="TextBox_LostFocus" TextInput="TextBox_TextInput" FontSize="16" Margin="0,2,0,0">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
-                        <Setter Property="Background" Value="#666666"/>
+                        <Setter Property="Background" Value="#444145"/>
                         <Setter Property="Foreground" Value="White"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
                         <Setter Property="Padding" Value="3"/>

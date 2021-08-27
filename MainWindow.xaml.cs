@@ -78,9 +78,6 @@ namespace QQS_UI
             renderWidth.Value = 1920;
             renderHeight.Value = 1080;
             noteSpeed.Value = 1.5;
-#if DEBUG
-            Title += " (Debug)";
-#endif
             unpressedKeyboardGradientStrength.Value = Global.DefaultUnpressedWhiteKeyGradientScale;
             pressedKeyboardGradientStrength.Value = Global.DefaultPressedWhiteKeyGradientScale;
             noteGradientStrength.Value = Global.DefaultNoteGradientScale;

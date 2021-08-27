@@ -39,7 +39,7 @@
                             </Grid.IsEnabled>
                         </Grid>
                         <StackPanel Margin="0">
-                            <Label Content="Midi" FontSize="20" Margin="0,15,0,0"/>
+                            <Label Content="MIDI" FontSize="20" Margin="0,15,0,0"/>
                             <DockPanel Margin="0,10,0,0">
                                 <Button Content="Browse" HorizontalAlignment="Left" Width="100" IsEnabled="{Binding ElementName=loadable, Path=IsEnabled}" x:Name="openMidi" Click="openMidi_Click"/>
                                 <TextBox Text="Input.mid" IsReadOnly="True" Width="550" HorizontalAlignment="Left" Margin="15,0,0,0" x:Name="midiPath"/>
@@ -66,36 +66,31 @@
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem Header="Render" Style="{StaticResource SubTabItems}">
+                <TabItem Header="General" Style="{StaticResource SubTabItems}">
                     <Grid>
                         <StackPanel>
-                            <Label Content="Render" Margin="0,15,0,0" FontSize="20"/>
+                            <Label Content="Settings" Margin="0,15,0,0" FontSize="20"/>
                             <DockPanel Margin="0,10,0,0">
-                                <Label Content="Note Speed: " HorizontalAlignment="Left" Width="150"/>
+                                <Label Content="Note Speed: " HorizontalAlignment="Left" Width="100"/>
                                 <ui:ValueSlider Minimum="0.25" Maximum="10" HorizontalAlignment="Left" Width="222" Value="1" TrueMin="0.25" TrueMax="10" Step="0.1" DecimalPoints="2" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="noteSpeed" ValueChanged="noteSpeed_ValueChanged"/>
                             </DockPanel>
                             <DockPanel Margin="0,10,0,0">
-                                <Label Content="Keyboard Height (%): " HorizontalAlignment="Left" Width="150"/>
+                                <Label Content="Keyboard Height (%): " HorizontalAlignment="Left" Width="160"/>
                                 <ui:NumberSelect Minimum="5" Maximum="45" Value="15" x:Name="keyboardHeightPercentage" HorizontalAlignment="Left" Width="100" ValueChanged="keyboardHeightPercentage_ValueChanged" IsEnabled="{DynamicResource notRenderingOrPreviewing}"/>
                             </DockPanel>
-                            <DockPanel Margin="0,10,0,0">
-                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                            <DockPanel Margin="0,10,0,3">
                                 <ui:BetterCheckbox Text="C4 Square" Margin="0,0,0,0" IsEnabled="{DynamicResource notRenderingOrPreviewing}" IsChecked="False" x:Name="drawGreySquare" CheckToggled="drawGreySquare_CheckToggled"/>
                             </DockPanel>
-                            <DockPanel Margin="0,0,0,0">
-                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                            <DockPanel Margin="0,3,0,3">
                                 <ui:BetterCheckbox Text="Gradients" HorizontalAlignment="Left" Margin="0,0,0,0" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="enableNoteColorGradient" CheckToggled="enableNoteColorGradient_CheckToggled" IsChecked="True"/>
                             </DockPanel>
-                            <DockPanel Margin="0,0,0,0">
-                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                            <DockPanel Margin="0,3,0,3">
                                 <ui:BetterCheckbox Text="Splitters" HorizontalAlignment="Left" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="enableSeparator" CheckToggled="enableSeparator_CheckToggled" IsChecked="True"/>
                             </DockPanel>
-                            <DockPanel Margin="0,0,0,0">
-                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                            <DockPanel Margin="0,3,0,3">
                                 <ui:BetterCheckbox Text="Flat notes" HorizontalAlignment="Left" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="thinnerNotes" CheckToggled="thinnerNotes_CheckToggled" IsChecked="True"/>
                             </DockPanel>
-                            <DockPanel Margin="0,0,0,0">
-                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                            <DockPanel Margin="0,3,0,3">
                                 <ui:BetterCheckbox Text="Flat Black Keys" HorizontalAlignment="Left" x:Name="betterBlackKeys">
                                     <ui:BetterCheckbox.IsEnabled>
                                         <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -106,7 +101,7 @@
                                 </ui:BetterCheckbox>
                             </DockPanel>
                             <DockPanel Margin="0,10,0,0">
-                                <Label Content="Divider Colour (RGB):" Margin="0,0,0,0" Width="150" HorizontalAlignment="Left"/>
+                                <Label Content="Divider Colour (RGB):" Margin="0,0,0,0" Width="160" HorizontalAlignment="Left"/>
                                 <Label Content="#"/>
                                 <TextBox Text="A00000" HorizontalAlignment="Left" Width="120" MaxLength="6" x:Name="barColor" IsReadOnly="{Binding ElementName=enableSeparator, Path=IsChecked, Converter={StaticResource NotValueConverter}}"/>
                                 <Border Background="Black" Width="30" Margin="10,0,0,0">
@@ -122,7 +117,7 @@
                                 </Button>
                             </DockPanel>
                             <DockPanel Margin="0,10,0,0">
-                                <Label Content="Background Colour (RGB):" Width="150" HorizontalAlignment="Left"/>
+                                <Label Content="Background Colour (RGB):" Width="200" HorizontalAlignment="Left"/>
                                 <Label Content="#"/>
                                 <TextBox Text="000000" HorizontalAlignment="Left" Width="120" MaxLength="6" x:Name="bgColor"/>
                                 <Border Background="Black" Margin="10,0,0,0" Width="30">
@@ -135,9 +130,9 @@
                 </TabItem>
                 <TabItem Header="Gradients" Style="{StaticResource SubTabItems}" Visibility="{Binding ElementName=enableNoteColorGradient, Path=IsChecked}">
                     <StackPanel Margin="0,15,0,0">
-                        <Label Content="Settings" FontSize="20"/>
+                        <Label Content="Gradients" FontSize="20"/>
                         <DockPanel Margin="0,10,0,0">
-                            <Label Content="Intensity: " Width="180" HorizontalAlignment="Left"/>
+                            <Label Content="Note Intensity: " Width="190" HorizontalAlignment="Left"/>
                             <ui:ValueSlider Minimum="1" Width="250" Maximum="1.25" Value="1.08" x:Name="noteGradientStrength" Step="0.001" TrueMin="1" TrueMax="1.25" DecimalPoints="4" ValueChanged="noteGradientStrength_ValueChanged">
                                 <ui:ValueSlider.IsEnabled>
                                     <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -146,7 +141,7 @@
                                     </MultiBinding>
                                 </ui:ValueSlider.IsEnabled>
                             </ui:ValueSlider>
-                            <Label Content="Bar Gradient Intensity:" Width="180" Margin="10,0,0,0"/>
+                            <Label Content="Bar Intensity:" Width="190" Margin="10,0,0,0"/>
                             <ui:ValueSlider Minimum="1" Width="250" Maximum="1.2" Value="1.08" x:Name="separatorGradientStrength" Step="0.001" DecimalPoints="4" TrueMin="1" TrueMax="1.2" ValueChanged="separatorGradientStrength_ValueChanged">
                                 <ui:ValueSlider.IsEnabled>
                                     <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -158,7 +153,7 @@
                             </ui:ValueSlider>
                         </DockPanel>
                         <DockPanel Margin="0,10,0,0">
-                            <Label Content="Keyboard Gradient Intensity (Unpressed):" Width="180"/>
+                            <Label Content="Unpressed Key Intensity:" Width="190"/>
                             <ui:ValueSlider Minimum="1" Width="250" Maximum="1.1" Value="1.0025" x:Name="unpressedKeyboardGradientStrength" Step="0.001" DecimalPoints="5" TrueMin="1" TrueMax="1.2" ValueChanged="unpressedKeyboardGradientStrength_ValueChanged">
                                 <ui:ValueSlider.IsEnabled>
                                     <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -167,7 +162,7 @@
                                     </MultiBinding>
                                 </ui:ValueSlider.IsEnabled>
                             </ui:ValueSlider>
-                            <Label Content="Keyboard Gradient Intensity (Pressed):" Width="180" Margin="10,0,0,0"/>
+                            <Label Content="Pressed Key Intensity:" Width="180" Margin="10,0,0,0"/>
                             <ui:ValueSlider Minimum="1" Width="250" Maximum="1.1" Value="1.002" x:Name="pressedKeyboardGradientStrength" Step="0.001" DecimalPoints="5" TrueMin="1" TrueMax="1.2" ValueChanged="pressedKeyboardGradientStrength_ValueChanged">
                                 <ui:ValueSlider.IsEnabled>
                                     <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -178,7 +173,7 @@
                             </ui:ValueSlider>
                         </DockPanel>
                         <DockPanel Margin="0,10,0,0">
-                            <Label Content="Note Gradient Direction:" Width="180" HorizontalAlignment="Left"/>
+                            <Label Content="Note Gradient Direction:" Width="220" HorizontalAlignment="Left"/>
                             <ComboBox HorizontalAlignment="Left" Width="180" SelectedIndex="0" VerticalContentAlignment="Center" x:Name="noteGradientDirection" SelectionChanged="noteGradientDirection_SelectionChanged">
                                 <ComboBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -191,7 +186,7 @@
                             </ComboBox>
                         </DockPanel>
                         <DockPanel Margin="0,10,0,0">
-                            <Label Content="Keyboard Gradient Direction:" Width="180" HorizontalAlignment="Left"/>
+                            <Label Content="Keyboard Gradient Direction:" Width="220" HorizontalAlignment="Left"/>
                             <ComboBox HorizontalAlignment="Left" Width="180" SelectedIndex="0" VerticalContentAlignment="Center" x:Name="keyboardGradientDirection" SelectionChanged="keyboardGradientDirection_SelectionChanged">
                                 <ComboBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -204,7 +199,7 @@
                             </ComboBox>
                         </DockPanel>
                         <DockPanel Margin="0,10,0,0">
-                            <Label Content="Bar Gradient Direction:" Width="180" HorizontalAlignment="Left"/>
+                            <Label Content="Bar Gradient Direction:" Width="220" HorizontalAlignment="Left"/>
                             <ComboBox HorizontalAlignment="Left" Width="180" SelectedIndex="0" VerticalContentAlignment="Center" x:Name="barGradientDirection" SelectionChanged="barGradientDirection_SelectionChanged">
                                 <ComboBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource AndValueConverter}">
@@ -228,10 +223,14 @@
                 </TabItem>
                 <TabItem Header="Colours" Style="{StaticResource SubTabItems}">
                     <Grid>
-                        <StackPanel Margin="0,15,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="294*"/>
+                            <ColumnDefinition Width="391*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,15,0,0" Grid.ColumnSpan="2">
                             <Label Content="Colours" FontSize="20"/>
                             <DockPanel Margin="0,10,0,0">
-                                <Label Content="Palette path:" Width="150" HorizontalAlignment="Left"/>
+                                <Label Content="Palette path:" Width="100" HorizontalAlignment="Left"/>
                                 <TextBox Text="Default" HorizontalAlignment="Left" Width="450" x:Name="colorPath" IsReadOnly="True"/>
                                 <Button Content="Browse" Width="120" HorizontalAlignment="Left" Margin="15,0,0,0" x:Name="openColorFile" Click="openColorFile_Click" IsEnabled="{DynamicResource notRendering}"/>
                             </DockPanel>
@@ -266,7 +265,7 @@
                                 <ui:NumberSelect x:Name="renderWidth" Value="1920" Minimum="480" Maximum="7680" Width="100" HorizontalAlignment="Left" ValueChanged="renderWidth_ValueChanged" IsEnabled="{DynamicResource notRenderingOrPreviewing}"/>
                                 <Label Content="Height" Margin="5,0,0,0"/>
                                 <ui:NumberSelect x:Name="renderHeight" Value="1080" Minimum="360" Maximum="4320" Width="100" HorizontalAlignment="Left" ValueChanged="renderHeight_ValueChanged" IsEnabled="{DynamicResource notRenderingOrPreviewing}"/>
-                                <Label Content="Default: " Margin="15,0,0,0"/>
+                                <Label Content="Presets: " Margin="15,0,0,0"/>
                                 <ComboBox x:Name="presetResolution" IsEditable="False" SelectedIndex="2" VerticalContentAlignment="Center" SelectionChanged="presetResolution_SelectionChanged" IsEnabled="{DynamicResource notRenderingOrPreviewing}">
                                     <ComboBoxItem Content="480p (640x480, 4:3)"/>
                                     <ComboBoxItem Content="720p (1280x720, 16:9)"/>
@@ -276,14 +275,14 @@
                                 </ComboBox>
                             </DockPanel>
                             <DockPanel Margin="0,10,0,0">
-                                <Label Content="Output Path: " Width="150" HorizontalAlignment="Left"/>
+                                <Label Content="Output Path: " Width="110" HorizontalAlignment="Left"/>
                                 <TextBox x:Name="outputPath" Text="Output.mp4" Margin="0,0,0,0" Width="420" HorizontalAlignment="Left" IsReadOnly="True"/>
-                                <Button Content="选择" Width="120" HorizontalAlignment="Left" Margin="15,0,0,0" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="selectOutput" Click="selectOutput_Click"/>
+                                <Button Content="Browse" Width="120" HorizontalAlignment="Left" Margin="15,0,0,0" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="selectOutput" Click="selectOutput_Click"/>
                             </DockPanel>
                             <DockPanel Margin="0,10,0,0">
-                                <Label Content="Custom ffmpeg arguments:" Width="150"/>
+                                <Label Content="Custom ffmpeg arguments:" Width="210"/>
                                 <TextBox Text="" Width="420" x:Name="additionalFFArgs" IsEnabled="{DynamicResource notRenderingOrPreviewing}"/>
-                                <ui:BetterCheckbox x:Name="usePNGEncoder" Text="使用 PNG 编码器" Margin="5,0,0,0" IsChecked="False" CheckToggled="usePNGEncoder_CheckToggled" IsEnabled="{DynamicResource notRenderingOrPreviewing}" HorizontalAlignment="Left" Width="150"/>
+                                <ui:BetterCheckbox x:Name="usePNGEncoder" Text="Use PNG encoder" Margin="5,0,0,0" IsChecked="False" CheckToggled="usePNGEncoder_CheckToggled" IsEnabled="{DynamicResource notRenderingOrPreviewing}" HorizontalAlignment="Left" Width="150"/>
                             </DockPanel>
                         </StackPanel>
                     </Grid>
