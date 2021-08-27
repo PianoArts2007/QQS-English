@@ -33,6 +33,7 @@ namespace QQS_UI
         private CommonRenderer renderer = null;
         private readonly Config config;
         private readonly CustomColor customColors;
+        private int keyHeightPercentage = 15;
         private const string DefaultVideoFilter = "Video (*.mp4, *.avi, *.mov)|*.mp4;*.avi;*.mov",
             PNGVideoFilter = "Video (*.mp4, *.mov)|*.mp4, *.mov",
             TransparentVideoFilter = "Video (*.mov)|*.mov";
@@ -73,9 +74,17 @@ namespace QQS_UI
             {
                 loadPFAColors.IsEnabled = false;
             }
+
+            renderWidth.Value = 1920;
+            renderHeight.Value = 1080;
+            noteSpeed.Value = 1.5;
 #if DEBUG
             Title += " (Debug)";
 #endif
+            unpressedKeyboardGradientStrength.Value = Global.DefaultUnpressedWhiteKeyGradientScale;
+            pressedKeyboardGradientStrength.Value = Global.DefaultPressedWhiteKeyGradientScale;
+            noteGradientStrength.Value = Global.DefaultNoteGradientScale;
+            separatorGradientStrength.Value = Global.DefaultSeparatorGradientScale;
         }
 
         private void openMidi_Click(object sender, RoutedEventArgs e)
@@ -136,58 +145,9 @@ namespace QQS_UI
             midiLen.Content = "--:--.---";
         }
 
-        private void fpsBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            switch (fpsBox.SelectedIndex)
-            {
-                case 0:
-                    options.FPS = 30;
-                    break;
-                case 1:
-                    options.FPS = 60;
-                    break;
-                case 2:
-                    options.FPS = 120;
-                    break;
-                default:
-                    options.FPS = 240;
-                    break;
-            }
-        }
-
         private void noteSpeed_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             options.NoteSpeed = noteSpeed.Value;
-        }
-
-        private void renderResolution_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            switch (renderResolution.SelectedIndex)
-            {
-                case 0:
-                    options.Width = 640;
-                    options.Height = 480;
-                    break;
-                case 1:
-                    options.Width = 1280;
-                    options.Height = 720;
-                    break;
-                case 2:
-                    options.Width = 1920;
-                    options.Height = 1080;
-                    break;
-                case 3:
-                    options.Width = 2560;
-                    options.Height = 1440;
-                    break;
-                case 4:
-                    options.Width = 3840;
-                    options.Height = 2160;
-                    break;
-                default:
-                    break;
-            }
-            options.KeyHeight = options.Height * 15 / 100;
         }
 
         private void selectOutput_Click(object sender, RoutedEventArgs e)
@@ -340,18 +300,6 @@ namespace QQS_UI
             }
         }
 
-        private void enableRandomColor_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
-            if (enableRandomColor.IsChecked)
-            {
-                _ = customColors.Shuffle().SetGlobal();
-            }
-            else
-            {
-                _ = customColors.SetGlobal();
-            }
-        }
-
         private void limitPreviewFPS_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
             Global.LimitPreviewFPS = e.NewValue;
@@ -363,7 +311,7 @@ namespace QQS_UI
             {
                 RGBAColor[] colors = PFAConfigrationLoader.LoadPFAConfigurationColors();
                 customColors.Colors = colors;
-                customColors.SetGlobal();
+                _ = customColors.SetGlobal();
             }
             catch (Exception ex)
             {
@@ -398,6 +346,141 @@ namespace QQS_UI
             {
                 _ = MessageBox.Show("Invalid colour code.\nThe colour code is incorrect.", "Invalid colour code");
             }
+        }
+
+        private void drawGreySquare_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            options.DrawGreySquare = e.NewValue;
+        }
+
+        private void enableNoteColorGradient_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            options.Gradient = e.NewValue;
+        }
+
+        private void shuffleColor_Click(object sender, RoutedEventArgs e)
+        {
+            customColors.Shuffle().SetGlobal();
+        }
+
+        private void enableSeparator_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            options.DrawSeparator = e.NewValue;
+        }
+
+        private void thinnerNotes_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            options.ThinnerNotes = e.NewValue;
+        }
+
+        private void fps_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
+        {
+            options.FPS = (int)e.NewValue;
+        }
+
+        private void renderWidth_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
+        {
+            options.Width = (int)e.NewValue;
+        }
+
+        private void renderHeight_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
+        {
+            options.Height = (int)e.NewValue;
+            options.KeyHeight = options.Height * keyHeightPercentage / 100;
+        }
+
+        private void presetResolution_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (presetResolution.SelectedIndex)
+            {
+                case 0:
+                    renderWidth.Value = 640;
+                    renderHeight.Value = 480;
+                    break;
+                case 1:
+                    renderWidth.Value = 1280;
+                    renderHeight.Value = 720;
+                    break;
+                case 2:
+                    renderWidth.Value = 1920;
+                    renderHeight.Value = 1080;
+                    break;
+                case 3:
+                    renderWidth.Value = 2560;
+                    renderHeight.Value = 1440;
+                    break;
+                default:
+                    renderWidth.Value = 3840;
+                    renderHeight.Value = 2160;
+                    break;
+            }
+        }
+
+        private void keyboardHeightPercentage_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
+        {
+            keyHeightPercentage = (int)e.NewValue;
+            options.KeyHeight = options.Height * keyHeightPercentage / 100;
+        }
+
+        private void delayStart_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
+        {
+            options.DelayStartSeconds = (double)e.NewValue;
+        }
+
+        private void resetGradientScale_Click(object sender, RoutedEventArgs e)
+        {
+            unpressedKeyboardGradientStrength.Value = Global.DefaultUnpressedWhiteKeyGradientScale;
+            pressedKeyboardGradientStrength.Value = Global.DefaultPressedWhiteKeyGradientScale;
+            noteGradientStrength.Value = Global.DefaultNoteGradientScale;
+            separatorGradientStrength.Value = Global.DefaultSeparatorGradientScale;
+
+            unpressedKeyboardGradientStrength.slider.Value = Global.DefaultUnpressedWhiteKeyGradientScale;
+            pressedKeyboardGradientStrength.slider.Value = Global.DefaultPressedWhiteKeyGradientScale;
+            noteGradientStrength.slider.Value = Global.DefaultNoteGradientScale;
+            separatorGradientStrength.slider.Value = Global.DefaultSeparatorGradientScale;
+
+            options.KeyboardGradientDirection = VerticalGradientDirection.FromButtomToTop;
+            options.SeparatorGradientDirection = VerticalGradientDirection.FromButtomToTop;
+            options.NoteGradientDirection = HorizontalGradientDirection.FromLeftToRight;
+
+            keyboardGradientDirection.SelectedIndex = 0;
+            noteGradientDirection.SelectedIndex = 0;
+            barGradientDirection.SelectedIndex = 0;
+        }
+
+        private void noteGradientStrength_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Global.NoteGradientScale = e.NewValue;
+        }
+
+        private void unpressedKeyboardGradientStrength_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Global.UnpressedWhiteKeyGradientScale = e.NewValue;
+        }
+
+        private void pressedKeyboardGradientStrength_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Global.PressedWhiteKeyGradientScale = e.NewValue;
+        }
+
+        private void separatorGradientStrength_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Global.SeparatorGradientScale = e.NewValue;
+        }
+
+        private void noteGradientDirection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            options.NoteGradientDirection = (HorizontalGradientDirection)noteGradientDirection.SelectedIndex;
+        }
+
+        private void keyboardGradientDirection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            options.KeyboardGradientDirection = (VerticalGradientDirection)keyboardGradientDirection.SelectedIndex;
+        }
+
+        private void barGradientDirection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            options.SeparatorGradientDirection = (VerticalGradientDirection)barGradientDirection.SelectedIndex;
         }
 
         private void setBarColor_Click(object sender, RoutedEventArgs e)

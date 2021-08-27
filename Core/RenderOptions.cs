@@ -12,15 +12,26 @@ namespace QQS_UI.Core
     /// </summary>
     public struct RenderOptions
     {
+        /// <summary>
+        /// 此成员没有被使用过.<br/>
+        /// This member is wasted.
+        /// </summary>
         public bool TickBased;
         public bool PNGEncoder;
         public bool TransparentBackground;
-        public bool Horizontal;
+        public bool ThinnerNotes;
+        public bool DrawSeparator;
         public bool PreviewMode;
+        public bool DrawGreySquare;
+        public bool Gradient;
         public int Width, Height, FPS, CRF, KeyHeight;
+        public VerticalGradientDirection KeyboardGradientDirection;
+        public VerticalGradientDirection SeparatorGradientDirection;
+        public HorizontalGradientDirection NoteGradientDirection;
         public RGBAColor DivideBarColor;
         public RGBAColor BackgroundColor;
         public double NoteSpeed;
+        public double DelayStartSeconds;
         public string Input;
         public string Output;
         public string AdditionalFFMpegArgument;
@@ -35,13 +46,20 @@ namespace QQS_UI.Core
                 CRF = 17,
                 KeyHeight = 162,
                 NoteSpeed = 1,
-                DivideBarColor = 0xFF000080,
+                DivideBarColor = 0xFF0000A0,
                 TickBased = true,
                 PNGEncoder = false,
                 TransparentBackground = false,
-                Horizontal = false,
+                DrawSeparator = true,
                 PreviewMode = false,
                 AdditionalFFMpegArgument = string.Empty,
+                DrawGreySquare = false,
+                Gradient = true,
+                ThinnerNotes = true,
+                DelayStartSeconds = 0,
+                KeyboardGradientDirection = VerticalGradientDirection.FromButtomToTop,
+                NoteGradientDirection = HorizontalGradientDirection.FromLeftToRight,
+                SeparatorGradientDirection = VerticalGradientDirection.FromButtomToTop,
                 BackgroundColor = new RGBAColor
                 {
                     A = 0xFF,
