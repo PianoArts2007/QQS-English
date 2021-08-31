@@ -1,10 +1,13 @@
 # QMidiCore-Quaver-Stream-Renderer
-QMidiCore Quaver Stream Renderer (简称QQS) 是一个黑乐谱渲染器. 原作者是qishipai.
+QMidiCore Quaver Stream Renderer (QQS) is a Black MIDI renderer originally made by qishipai.
 
-### 项目引用 Project reference
-- SharpExtension 提供一些操作非托管内存以及流的方法. Provides some methods of allocating, freeing unmanaged memory and stream operations.
-- SharpCollections 提供一些基于非托管内存的集合类似. Provides some collections using unmanaged memory.
-- Newtonsoft.Json 进行Json操作.
+### Project reference
+- SharpExtension - Provides some methods of allocating, freeing unmanaged memory and stream operations.
+- SharpCollections - Provides some collections using unmanaged memory.
+- Newtonsoft.Json - Provides the ability to load JSON files.
 
 ### UI
-使用了Arduano的"Zenith-MIDI"项目中的UI样式，并进行了颜色修改.
+The UI style is made by Arduano for "Zenith-MIDI". The colours have been modified.
+
+### This fork
+This fork of QMidiCore Quaver Stream Renderer is a translation of the program from Chinese to English for international users.
