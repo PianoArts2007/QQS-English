@@ -82,6 +82,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Structures.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Core\CanvasBase.cs" />
     <Compile Include="Core\Color.cs" />
@@ -174,6 +175,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="icon_new.ico" />
+    <Content Include="icon_new.png" />
     <Content Include="Newtonsoft.Json.dll" />
     <Content Include="SharpCollections.dll" />
     <Content Include="SharpExtension.dll" />
