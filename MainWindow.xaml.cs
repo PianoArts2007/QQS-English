@@ -480,6 +480,34 @@ namespace QQS_UI
             options.SeparatorGradientDirection = (VerticalGradientDirection)barGradientDirection.SelectedIndex;
         }
 
+        private void betterBlackKeys_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            options.BetterBlackKeys = e.NewValue;
+        }
+
+        private void drawKeyboard_CheckToggled(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            if (e.NewValue)
+            {
+                options.KeyHeight = options.Height * keyHeightPercentage / 100;
+                if (enableSeparator != null)
+                {
+                    options.DrawSeparator = enableSeparator.IsChecked;
+                }
+                if (drawGreySquare != null)
+                {
+                    options.DrawGreySquare = drawGreySquare.IsChecked;
+                }
+
+            }
+            else
+            {
+                options.KeyHeight = 0;
+                options.DrawGreySquare = false;
+                options.DrawSeparator = false;
+            }
+        }
+
         private void setBarColor_Click(object sender, RoutedEventArgs e)
         {
             string coltxt = barColor.Text;

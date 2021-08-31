@@ -7,8 +7,8 @@
         xmlns:local="clr-namespace:QQS_UI"
         xmlns:ui="clr-namespace:QQS_UI.UI"
         mc:Ignorable="d"
-        FontFamily="Metropolis"
-        Title="QMidiCore Quaver Stream Renderer 1.2.5" Height="540" Width="960" Background="#323033">
+        FontFamily="Microsoft Yahei"
+        Title="QMidiCore Quaver Stream Renderer 1.2.10" Height="540" Width="960" Background="#323033">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -78,22 +78,44 @@
                                 <Label Content="Keyboard Height (%): " HorizontalAlignment="Left" Width="160"/>
                                 <ui:NumberSelect Minimum="5" Maximum="45" Value="15" x:Name="keyboardHeightPercentage" HorizontalAlignment="Left" Width="100" ValueChanged="keyboardHeightPercentage_ValueChanged" IsEnabled="{DynamicResource notRenderingOrPreviewing}"/>
                             </DockPanel>
-                            <DockPanel Margin="0,10,0,3">
-                                <ui:BetterCheckbox Text="C4 Square" Margin="0,0,0,0" IsEnabled="{DynamicResource notRenderingOrPreviewing}" IsChecked="False" x:Name="drawGreySquare" CheckToggled="drawGreySquare_CheckToggled"/>
+                            <DockPanel Margin="0,10,0,0">
+                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                                <ui:BetterCheckbox Text="C4 Square" Margin="0,0,0,0" IsChecked="False" x:Name="drawGreySquare" CheckToggled="drawGreySquare_CheckToggled">
+                                    <ui:BetterCheckbox.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource AndValueConverter}">
+                                            <Binding ElementName="drawKeyboard" Path="IsChecked"/>
+                                            <Binding ElementName="notRenderingOrPreviewing" Path="IsEnabled"/>
+                                        </MultiBinding>
+                                    </ui:BetterCheckbox.IsEnabled>
+                                </ui:BetterCheckbox>
+                            </DockPanel>
+                            <DockPanel Margin="0,0,0,0">
+                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                                <ui:BetterCheckbox Text="Keyboard" Margin="0,0,0,0" IsEnabled="{DynamicResource notRenderingOrPreviewing}" IsChecked="True" x:Name="drawKeyboard" CheckToggled="drawKeyboard_CheckToggled"/>
                             </DockPanel>
                             <DockPanel Margin="0,3,0,3">
                                 <ui:BetterCheckbox Text="Gradients" HorizontalAlignment="Left" Margin="0,0,0,0" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="enableNoteColorGradient" CheckToggled="enableNoteColorGradient_CheckToggled" IsChecked="True"/>
                             </DockPanel>
-                            <DockPanel Margin="0,3,0,3">
-                                <ui:BetterCheckbox Text="Splitters" HorizontalAlignment="Left" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="enableSeparator" CheckToggled="enableSeparator_CheckToggled" IsChecked="True"/>
+                            <DockPanel Margin="0,0,0,0">
+                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                                <ui:BetterCheckbox Text="Splitters" HorizontalAlignment="Left" x:Name="enableSeparator" CheckToggled="enableSeparator_CheckToggled" IsChecked="True">
+                                    <ui:BetterCheckbox.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource AndValueConverter}">
+                                            <Binding ElementName="notRenderingOrPreviewing" Path="IsEnabled"/>
+                                            <Binding ElementName="drawKeyboard" Path="IsChecked"/>
+                                        </MultiBinding>
+                                    </ui:BetterCheckbox.IsEnabled>
+                                </ui:BetterCheckbox>
                             </DockPanel>
                             <DockPanel Margin="0,3,0,3">
                                 <ui:BetterCheckbox Text="Flat notes" HorizontalAlignment="Left" IsEnabled="{DynamicResource notRenderingOrPreviewing}" x:Name="thinnerNotes" CheckToggled="thinnerNotes_CheckToggled" IsChecked="True"/>
                             </DockPanel>
-                            <DockPanel Margin="0,3,0,3">
-                                <ui:BetterCheckbox Text="Flat Black Keys" HorizontalAlignment="Left" x:Name="betterBlackKeys">
+                            <DockPanel Margin="0,0,0,0">
+                                <TextBox Margin="7,0,0,0" IsReadOnly="True"/>
+                                <ui:BetterCheckbox Text="Better Black Keys" HorizontalAlignment="Left" x:Name="betterBlackKeys" CheckToggled="betterBlackKeys_CheckToggled">
                                     <ui:BetterCheckbox.IsEnabled>
                                         <MultiBinding Converter="{StaticResource AndValueConverter}">
+                                            <Binding Path="IsChecked" ElementName="drawKeyboard"/>
                                             <Binding Path="IsChecked" ElementName="enableSeparator"/>
                                             <Binding Path="IsEnabled" ElementName="notRenderingOrPreviewing"/>
                                         </MultiBinding>
