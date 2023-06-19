@@ -56,7 +56,7 @@ namespace QQS_UI.Core
                 AdditionalFFMpegArgument = string.Empty,
                 DrawGreySquare = false,
                 Gradient = true,
-                ThinnerNotes = true,
+                ThinnerNotes = false,
                 DelayStartSeconds = 0,
                 BetterBlackKeys = false,
                 KeyboardGradientDirection = VerticalGradientDirection.FromButtomToTop,
