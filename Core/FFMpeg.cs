@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using SharpExtension.IO;
+using Syste.IO;
+using System.Windows;
 
 namespace QQS_UI.Core
 {
@@ -28,6 +30,17 @@ namespace QQS_UI.Core
             frameSize = (uint)width * (uint)height * 4;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("FFMpeg Starting Command: {0}", ffcommand);
+
+            string ffmpegPath = "ffmpeg.exe";
+            if (File.Exists(ffmpegPath))
+            {
+                Console.WriteLine("ffmpeg.exe was found!");
+            }
+            else
+            {
+                _ = MessageBox.Show("ffmpeg.exe was not found \nMake sure that you downloaded and placed ffmpeg.exe in the program directory!", "Error");
+                return;
+            }
         }
         /// <summary>
         /// 向 FFMpeg 写入一帧.<br/>
