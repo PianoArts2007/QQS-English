@@ -136,7 +136,7 @@ namespace QQS_UI
             file = null;
             GC.Collect(gen);
             Resources["midiLoaded"] = false;
-            Console.WriteLine("Unloaded MIDI.");
+            Console.WriteLine("Unloaded MIDI");
             noteCount.Content = "-";
             trackCount.Content = "-";
             midiLen.Content = "--:--.---";
@@ -178,7 +178,7 @@ namespace QQS_UI
             renderer = new CommonRenderer(file, options);
             _ = Task.Run(() =>
             {
-                Console.WriteLine("准备渲染...");
+                Console.WriteLine("Starting to render...");
                 renderer.Render();
                 int gen = GC.GetGeneration(renderer);
                 Dispatcher.Invoke(() =>
