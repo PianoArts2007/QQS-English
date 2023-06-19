@@ -128,7 +128,8 @@ namespace QQS_UI.Core
                 };
                 trkInfo[i].Data = (byte*)UnsafeMemory.Allocate(trkInfo[i].Size);
                 _ = stream.Read(trkInfo[i].Data, trkInfo[i].Size, 1);
-                Console.WriteLine("拷贝音轨 #{0} 的信息. 音轨大小: {1} 字节.", i, trkInfo[i].Size);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Loading track: {0} | Track size: {1} byte", i, trkInfo[i].Size, Console.ForegroundColor);
             }
             for (int i = 0; i != 128; ++i)
             {
@@ -269,7 +270,7 @@ namespace QQS_UI.Core
                             break;
                     }
                 }
-                Console.WriteLine("音轨 #{0} 解析完成. 音符数: {1}.", i, nl.Count);
+                Console.WriteLine("Track: {0} Parsed! | Note Count: {1}", i, nl.Count);
                 UnsafeMemory.Free(trkInfo[i].Data);
                 trkInfo[i].Data = null;
                 trkInfo[i].TrackTime = trkTime;
@@ -283,7 +284,7 @@ namespace QQS_UI.Core
                 NoteCount += trkInfo[i].Notes.Count;
             }
             Tempos.TrimExcess();
-            Console.WriteLine("正在处理 Midi 事件...");
+            Console.WriteLine("Processing MIDI events...");
             for (int i = 0; i != TrackCount; ++i)
             {
                 if (trkInfo[i].Notes.Count == 0)
@@ -321,7 +322,7 @@ namespace QQS_UI.Core
             Tempos.AddRange(arr);
             arr.Dispose();
 
-            Console.WriteLine("Midi 事件处理完成. 音符总数: {0}.", NoteCount);
+            Console.WriteLine("MIDI events processing completed!. Total Note Count: {0}", NoteCount);
             stream.Dispose();
         }
         public RenderFile(string path)
@@ -334,7 +335,7 @@ namespace QQS_UI.Core
             Stopwatch sw = Stopwatch.StartNew();
             Parse();
             sw.Stop();
-            Console.WriteLine("加载 Midi 用时: {0:F2} s.", sw.ElapsedMilliseconds / 1000.0);
+            Console.WriteLine("MIDI Loaded in: {0:F2} seconds.", sw.ElapsedMilliseconds / 1000.0);
         }
 
         public string MidiPath => midiPath;
